@@ -58,13 +58,13 @@ int main(int argc, char *argv[]) {
 
     struct sockaddr_in client_addr;
     socklen_t client_addr_size = sizeof(client_addr);
-
+    char buf[1024];
+    
     signal(SIGCHLD, childSignalHandler);
-
+    
     while (true) {
         int client_socket = accept(
             server_socket, (struct sockaddr *)&client_addr, &client_addr_size);
-        char buf[1024];
         pid_t pid = fork();
         running_cnt++;
         if (pid < 0) {
