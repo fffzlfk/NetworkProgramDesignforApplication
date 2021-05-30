@@ -8,20 +8,20 @@
 
 using namespace std;
 
-void handleError(const string &msg) {
+void handle_error(const string &msg) {
     cout << "Error: " << msg << endl;
     exit(-1);
 }
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
-        cout << "Usage: ./client <addr> <port> time" << '\n';
+        cout << "Usage: ./client <addr> <port> <time>" << '\n';
         return 0;
     }
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
-        handleError("could not create socket.");
+        handle_error("could not create socket.");
     }
 
     struct sockaddr_in server_addr;
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
     if ((connect(sock, (struct sockaddr *)&server_addr, sizeof(server_addr))) <
         0) {
-        handleError("could not connect to server.");
+        handle_error("could not connect to server.");
     }
 
     char time[256];

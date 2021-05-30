@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void handleError(const string &msg) {
+void handle_error(const string &msg) {
     cout << "Error: " << msg << endl;
     exit(-1);
 }
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
     int server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (server_socket < 0) {
-        handleError("could not create socket.");
+        handle_error("could not create socket.");
     }
 
     struct sockaddr_in server_addr;
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     server_addr.sin_port = htons(atoi(argv[2]));
     if (bind(server_socket, (sockaddr *)&server_addr, sizeof(server_addr)) <
         0) {
-        handleError("could not bind address.");
+        handle_error("could not bind address.");
     }
 
     listen(server_socket, 20);
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
         pid_t pid = fork();
         running_cnt++;
         if (pid < 0) {
-            handleError("could not fork.");
+            handle_error("could not fork.");
         } else if (pid == 0) {
             read(client_socket, buf, sizeof(buf));
             int time = atoi(buf);
