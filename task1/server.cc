@@ -17,11 +17,11 @@ void handle_error(const string &msg) {
 
 int running_cnt = 0;
 
-void showRunningCount() {
+void show_running_count() {
     cout << "current running connections: " << running_cnt << '\n';
 }
 
-void childSignalHandler(int sig) {
+void childsignal_handler(int sig) {
     pid_t pid;
     int stat;
 
@@ -29,7 +29,7 @@ void childSignalHandler(int sig) {
     while ((pid = waitpid(-1, &stat, WNOHANG)) > 0)
         printf("child %d terminated.\n", pid);
     running_cnt--;
-    showRunningCount();
+    show_running_count();
 }
 
 int main(int argc, char *argv[]) {
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
     socklen_t client_addr_size = sizeof(client_addr);
     char buf[1024];
     
-    signal(SIGCHLD, childSignalHandler);
+    signal(SIGCHLD, childsignal_handler);
     
     while (true) {
         int connfd = accept(
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
             close(connfd);
             exit(0);
         } else {
-            showRunningCount();
+            show_running_count();
         }
     }
 
