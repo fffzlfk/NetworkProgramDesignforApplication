@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// 错误处理
 void handle_error(const string &msg) {
     cout << "Error: " << msg << endl;
     exit(-1);
@@ -17,6 +18,7 @@ void handle_error(const string &msg) {
 
 int running_cnt = 0;
 
+// 打印当前连接数量
 void show_running_count() {
     cout << "current running connections: " << running_cnt << '\n';
 }
@@ -43,6 +45,7 @@ int main(int argc, char *argv[]) {
         handle_error("could not create socket.");
     }
 
+    // 绑定服务器地址
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
@@ -60,6 +63,7 @@ int main(int argc, char *argv[]) {
     socklen_t client_addr_size = sizeof(client_addr);
     char buf[1024];
     
+    // 绑定SIGCHLD信号处理函数
     signal(SIGCHLD, childsignal_handler);
     
     while (true) {

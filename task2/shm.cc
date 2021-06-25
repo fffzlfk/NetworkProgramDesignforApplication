@@ -134,11 +134,14 @@ int main() {
 void sem_init(int semid, unsigned short semnum) {
     semctl(semid, semnum, SETVAL, arg);
 }
+
+// P操作
 void sem_P(int semid, unsigned short semnum) {
     struct sembuf sops = {semnum, -1, SEM_UNDO};
     semop(semid, &sops, 1);
 }
 
+// V操作
 void sem_V(int semid, unsigned short semnum) {
     struct sembuf sops = {semnum, +1, SEM_UNDO};
     semop(semid, &sops, 1);

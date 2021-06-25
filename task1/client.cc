@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
         handle_error("could not connect to server.");
     }
 
+    // 发送服务时间
     char time[256];
     strcpy(time, argv[3]);
     write(sock, time, sizeof(time));
